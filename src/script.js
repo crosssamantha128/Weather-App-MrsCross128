@@ -47,12 +47,10 @@ presentDate.innerHTML = `${day} ${today} ${month} ${year}`;
 let presentTime = document.querySelector("#currentTime");
 presentTime.innerHTML = `${hours} : ${minutes}`;
 
-let button = document.querySelector("#currentlocationweather");
-
 // eventlisteners
-form.addEventListener("submit", search);
+window.addEventListener("load", getCurrentPosition);
 
-button.addEventListener("click", getCurrentPosition);
+form.addEventListener("submit", search);
 
 //functions
 
@@ -65,6 +63,56 @@ function addZero(i) {
 
 function captialise(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+function weatherdata(response) {
+  currentlocation = response.data.city;
+  temperaturecelsius = Math.round(response.data.temperature.current);
+  temperaturefahrenheit = Math.round((temperaturecelsius * 9) / 5 + 32);
+  description = response.data.condition.description;
+  feelslike = Math.round(response.data.temperature.feels_like);
+  humidity = response.data.temperature.humidity;
+  windspeed = Math.round(response.data.wind.speed);
+  weathericon = response.data.condition.icon;
+  showTemperature(response.data);
+}
+
+function showCurrentPositionTemperature(response) {
+  weatherdata(response);
+  changestoHTML();
+}
+
+function changestoHTML() {
+  let weathericonhtml = document.querySelector("#weathericon");
+  weathericonhtml.setAttribute(
+    "src",
+    `http://shecodes-assets.s3.amazonaws.com/api/weather/icons/${weathericon}.png`
+  );
+  let currentPositionTemperatureElement =
+    document.querySelector("#temperatureChange");
+  currentPositionTemperatureElement.innerHTML = `${temperaturecelsius} °C`;
+  let h2 = document.querySelector("h2");
+  h2.innerHTML = `${currentlocation}`;
+  let p = document.querySelector("p");
+  p.innerHTML = `${description}`;
+  let feelsLike = document.querySelector("#feelslike");
+  feelsLike.innerHTML = `Feels-like = ${feelslike} °C`;
+  let humidityul = document.querySelector("#humidity");
+  humidityul.innerHTML = `Humidity = ${humidity}%`;
+  let windspeedul = document.querySelector("#windspeed");
+  windspeedul.innerHTML = `Windspeed = ${windspeed} km/h`;
+}
+
+function showPosition(position, units = "metric") {
+  let longitude = position.coords.longitude;
+  let latitude = position.coords.latitude;
+  let apiUrlPosition = `https://api.shecodes.io/weather/v1/current?lon=${longitude}&lat=${latitude}&key=${apiKey}&units=${units}`;
+  axios.get(apiUrlPosition).then(showCurrentPositionTemperature);
+}
+
+function getCurrentPosition(event) {
+  event.preventDefault;
+  navigator.geolocation.getCurrentPosition(showPosition);
 }
 
 function search(event) {
@@ -81,44 +129,25 @@ function callApi(query, units = "metric") {
   axios.get(apiUrl).then(weatherdata);
 }
 
-function weatherdata(response) {
-  currentlocation = response.data.city;
-  temperaturecelsius = Math.round(response.data.temperature.current);
-  temperaturefahrenheit = Math.round((temperaturecelsius * 9) / 5 + 32);
-  description = response.data.condition.description;
-  feelslike = Math.round(response.data.temperature.feels_like);
-  humidity = response.data.temperature.humidity;
-  windspeed = Math.round(response.data.wind.speed);
-  showTemperature(response.data);
-}
-
 function showTemperature(weatherdata) {
   let weather = weatherdata;
+  changestoHTML();
+}
+
+function convertToFahrenheit(event) {
+  event.preventDefault();
+  temperaturefahrenheit;
+  let temperatureElement = document.querySelector("#temperatureChange");
+  temperatureElement.innerHTML = `${temperaturefahrenheit} °F`;
+}
+let fahrenheitLink = document.querySelector("#fahrenheitLink");
+fahrenheitLink.addEventListener("click", convertToFahrenheit);
+
+function convertToCelsius(event) {
+  event.preventDefault();
+  temperaturecelsius;
   let temperatureElement = document.querySelector("#temperatureChange");
   temperatureElement.innerHTML = `${temperaturecelsius} °C`;
-  let p = document.querySelector("p");
-  p.innerHTML = `${description}`;
 }
-
-function showPosition(position, units = "metric") {
-  let longitude = position.coords.longitude;
-  let latitude = position.coords.latitude;
-  let apiUrlPosition = `https://api.shecodes.io/weather/v1/current?lon=${longitude}&lat=${latitude}&key=${apiKey}&units=${units}`;
-  axios.get(apiUrlPosition).then(showCurrentPositionTemperature);
-}
-
-function showCurrentPositionTemperature(response) {
-  weatherdata(response);
-  let currentPositionTemperatureElement =
-    document.querySelector("#temperatureChange");
-  currentPositionTemperatureElement.innerHTML = `${temperaturecelsius} °C`;
-  let h2 = document.querySelector("h2");
-  h2.innerHTML = `${currentlocation}`;
-  let p = document.querySelector("p");
-  p.innerHTML = `${description}`;
-}
-
-function getCurrentPosition(event) {
-  event.preventDefault();
-  navigator.geolocation.getCurrentPosition(showPosition);
-}
+let celsiusLink = document.querySelector("#celsiusLink");
+celsiusLink.addEventListener("click", convertToCelsius);

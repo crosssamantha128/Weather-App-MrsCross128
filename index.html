@@ -32,9 +32,6 @@
     <div class="container" id="weathersearch">
       <div class="top">
         <form class="searchbar" id="city-search">
-          <button id="currentlocationweather">
-            <img src="images/currentlocationpin.png" />
-          </button>
           <input
             type="text"
             id="text-input"
@@ -50,7 +47,7 @@
         <div class="row">
           <div class="col">
             <div class="currentweatherinfo">
-              <img src="images/staticicon.png" />
+              <img src="images/staticicon.png" id="weathericon" />
               <span class="temperature" id="temperatureChange"> --- </span>
               <div class="btn-group" role="group" aria-label="Basic example">
                 <button type="button" class="btn btn-primary" id="celsiusLink">
@@ -69,13 +66,13 @@
             </div>
           </div>
           <div class="col">
-            <ul>
+            <ul id="feelslike">
               Feels-like
             </ul>
-            <ul>
+            <ul id="humidity">
               Humidity
             </ul>
-            <ul>
+            <ul id="windspeed">
               Windspeed
             </ul>
             <div class="row">
