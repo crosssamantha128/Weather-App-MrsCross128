@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
+      crossorigin="anonymous"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+    />
+    <script src="https://unpkg.com/axios@1.1.2/dist/axios.min.js"></script>
+    <link href="src/style.css" rel="stylesheet" type="text/css" />
+    <title>Weather Station</title>
+  </head>
+  <body>
+    <div class="container" id="weathersearch">
+      <div class="top">
+        <form class="searchbar" id="city-search">
+          <button id="currentlocationweather">
+            <img src="images/currentlocationpin.png" />
+          </button>
+          <input
+            type="text"
+            id="text-input"
+            placeholder="enter city name"
+            spellcheck="false"
+          />
+          <button id="searchcityweather">
+            <img src="images/searchicon2.png" />
+          </button>
+        </form>
+      </div>
+      <div class="middle" id="currentweather">
+        <div class="row">
+          <div class="col">
+            <div class="currentweatherinfo">
+              <img src="images/staticicon.png" />
+              <span class="temperature" id="temperatureChange"> --- </span>
+              <div class="btn-group" role="group" aria-label="Basic example">
+                <button type="button" class="btn btn-primary" id="celsiusLink">
+                  °C
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-primary"
+                  id="fahrenheitLink"
+                >
+                  °F
+                </button>
+              </div>
+              <h2>---</h2>
+              <p>Description</p>
+            </div>
+          </div>
+          <div class="col">
+            <ul>
+              Feels-like
+            </ul>
+            <ul>
+              Humidity
+            </ul>
+            <ul>
+              Windspeed
+            </ul>
+            <div class="row">
+              <div class="datetime">
+                <p id="currentDate">Date</p>
+                <p id="currentTime">Time</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="bottom" id="forecast">
+        <div class="row">
+          <div class="col">
+            <img src="images/staticicon.png" />
+            <span>Day One</span>
+            <span>---°</span>
+            <span>Description</span>
+          </div>
+          <div class="col">
+            <img src="images/staticicon.png" />
+            <span>Day Two</span>
+            <span>---°</span>
+            <span>Description</span>
+          </div>
+          <div class="col">
+            <img src="images/staticicon.png" />
+            <span>Day Three</span>
+            <span>---°</span>
+            <span>Description</span>
+          </div>
+          <div class="col">
+            <img src="images/staticicon.png" />
+            <span>Day Four</span>
+            <span>---°</span>
+            <span>Description</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <footer>Open-source code by MrsCross128🦄</footer>
+    <script src="src/script.js"></script>
+  </body>
+</html>
