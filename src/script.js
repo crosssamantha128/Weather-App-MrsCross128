@@ -24,10 +24,6 @@ let days = [
   "Saturday",
 ];
 let day = days[date.getDay()];
-let forecastDay1 = days[date.getDay() + 1];
-let forecastDay2 = days[date.getDay() + 2];
-let forecastDay3 = days[date.getDay() + 3];
-let forecastDay4 = days[date.getDay() + 4];
 
 let months = [
   "January",
@@ -50,6 +46,12 @@ presentDate.innerHTML = `${day} ${today} ${month} ${year}`;
 
 let presentTime = document.querySelector("#currentTime");
 presentTime.innerHTML = `${hours} : ${minutes}`;
+
+//Forecast variables
+let forecastDay1 = days[date.getDay() + 1];
+let forecastDay2 = days[date.getDay() + 2];
+let forecastDay3 = days[date.getDay() + 3];
+let forecastDay4 = days[date.getDay() + 4];
 
 let forecastDate1 = document.querySelector("#weekDay1");
 forecastDate1.innerHTML = `${forecastDay1}`;
@@ -167,3 +169,5 @@ function convertToCelsius(event) {
 }
 let celsiusLink = document.querySelector("#celsiusLink");
 celsiusLink.addEventListener("click", convertToCelsius);
+
+//Forecast functions

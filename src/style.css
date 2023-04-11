@@ -22,19 +22,14 @@ footer {
   font-family: "Poppins", sans-serif;
   color: #5585b5;
   max-width: 700px;
-  margin: 15px auto 5px;
+  margin: 15px auto 15px;
   padding: 30px 35px;
   border-radius: 20px;
   background: linear-gradient(to top, #89c4f4 35%, #6bb9f0 65%);
 }
 
-.top {
-  padding-bottom: 20px;
-}
-
 .middle {
   padding-top: 20px;
-  padding-bottom: 20px;
 }
 
 .middle img {
@@ -52,7 +47,6 @@ footer {
 
 .bottom {
   padding-top: 20px;
-  padding-bottom: 20px;
 }
 
 .searchbar {
