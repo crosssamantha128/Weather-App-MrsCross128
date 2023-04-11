@@ -24,6 +24,10 @@ let days = [
   "Saturday",
 ];
 let day = days[date.getDay()];
+let forecastDay1 = days[date.getDay() + 1];
+let forecastDay2 = days[date.getDay() + 2];
+let forecastDay3 = days[date.getDay() + 3];
+let forecastDay4 = days[date.getDay() + 4];
 
 let months = [
   "January",
@@ -46,6 +50,18 @@ presentDate.innerHTML = `${day} ${today} ${month} ${year}`;
 
 let presentTime = document.querySelector("#currentTime");
 presentTime.innerHTML = `${hours} : ${minutes}`;
+
+let forecastDate1 = document.querySelector("#weekDay1");
+forecastDate1.innerHTML = `${forecastDay1}`;
+
+let forecastDate2 = document.querySelector("#weekDay2");
+forecastDate2.innerHTML = `${forecastDay2}`;
+
+let forecastDate3 = document.querySelector("#weekDay3");
+forecastDate3.innerHTML = `${forecastDay3}`;
+
+let forecastDate4 = document.querySelector("#weekDay4");
+forecastDate4.innerHTML = `${forecastDay4}`;
 
 // eventlisteners
 window.addEventListener("load", getCurrentPosition);
