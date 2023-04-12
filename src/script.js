@@ -47,24 +47,6 @@ presentDate.innerHTML = `${day} ${today} ${month} ${year}`;
 let presentTime = document.querySelector("#currentTime");
 presentTime.innerHTML = `${hours} : ${minutes}`;
 
-//Forecast variables
-let forecastDay1 = days[date.getDay() + 1];
-let forecastDay2 = days[date.getDay() + 2];
-let forecastDay3 = days[date.getDay() + 3];
-let forecastDay4 = days[date.getDay() + 4];
-
-let forecastDate1 = document.querySelector("#weekDay1");
-forecastDate1.innerHTML = `${forecastDay1}`;
-
-let forecastDate2 = document.querySelector("#weekDay2");
-forecastDate2.innerHTML = `${forecastDay2}`;
-
-let forecastDate3 = document.querySelector("#weekDay3");
-forecastDate3.innerHTML = `${forecastDay3}`;
-
-let forecastDate4 = document.querySelector("#weekDay4");
-forecastDate4.innerHTML = `${forecastDay4}`;
-
 // eventlisteners
 window.addEventListener("load", getCurrentPosition);
 
@@ -150,6 +132,7 @@ function callApi(query, units = "metric") {
 function showTemperature(weatherdata) {
   let weather = weatherdata;
   changestoHTML();
+  displayForecast();
 }
 
 function convertToFahrenheit(event) {
@@ -171,3 +154,20 @@ let celsiusLink = document.querySelector("#celsiusLink");
 celsiusLink.addEventListener("click", convertToCelsius);
 
 //Forecast functions
+function displayForecast() {
+  let forecastElement = document.querySelector("#forecast");
+  let forecastHTML = `<div class="row">`;
+  let days = ["Thursday", "Friday", "Saturday", "Sunday", "Monday", "Tuesday"];
+  days.forEach(function (day) {
+    forecastHTML =
+      forecastHTML +
+      `<div class="col-2">
+      <img src="images/staticicon.png" />
+      <span id="weekDay">${day}</span>
+      <span id="forecastTemp">---°</span>
+      <span id="forecastDes">Des</span>
+    </div>`;
+  });
+  forecastHTML = forecastHTML + `</div`;
+  forecastElement.innerHTML = forecastHTML;
+}

@@ -99,7 +99,7 @@ footer {
   text-align: center;
 }
 
-.bottom .row .col span {
+.bottom .row .col-2 span {
   display: grid;
   font-size: 15px;
   padding: 8px;
