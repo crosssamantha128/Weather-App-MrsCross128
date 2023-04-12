@@ -53,7 +53,12 @@ window.addEventListener("load", getCurrentPosition);
 form.addEventListener("submit", search);
 
 //functions
-
+function formatDay(timestamp) {
+  let date = new Date(timestamp * 1000);
+  let day = date.getDay();
+  let days = ["Sun", "Mon", "Tues", "Wed", "Thurs", "Fri", "Sat"];
+  return days[day];
+}
 function addZero(i) {
   if (i < 10) {
     i = "0" + i;
@@ -75,6 +80,7 @@ function weatherdata(response) {
   windspeed = Math.round(response.data.wind.speed);
   weathericon = response.data.condition.icon;
   showTemperature(response.data);
+  getForecast(response.data.coordinates);
 }
 
 function showCurrentPositionTemperature(response) {
@@ -132,42 +138,31 @@ function callApi(query, units = "metric") {
 function showTemperature(weatherdata) {
   let weather = weatherdata;
   changestoHTML();
-  displayForecast();
 }
-
-function convertToFahrenheit(event) {
-  event.preventDefault();
-  temperaturefahrenheit;
-  let temperatureElement = document.querySelector("#temperatureChange");
-  temperatureElement.innerHTML = `${temperaturefahrenheit} °F`;
-}
-let fahrenheitLink = document.querySelector("#fahrenheitLink");
-fahrenheitLink.addEventListener("click", convertToFahrenheit);
-
-function convertToCelsius(event) {
-  event.preventDefault();
-  temperaturecelsius;
-  let temperatureElement = document.querySelector("#temperatureChange");
-  temperatureElement.innerHTML = `${temperaturecelsius} °C`;
-}
-let celsiusLink = document.querySelector("#celsiusLink");
-celsiusLink.addEventListener("click", convertToCelsius);
-
 //Forecast functions
-function displayForecast() {
+function displayForecast(response) {
+  let forecast = response.data.daily;
   let forecastElement = document.querySelector("#forecast");
   let forecastHTML = `<div class="row">`;
-  let days = ["Thursday", "Friday", "Saturday", "Sunday", "Monday", "Tuesday"];
-  days.forEach(function (day) {
-    forecastHTML =
-      forecastHTML +
-      `<div class="col-2">
-      <img src="images/staticicon.png" />
-      <span id="weekDay">${day}</span>
-      <span id="forecastTemp">---°</span>
-      <span id="forecastDes">Des</span>
+  forecast.forEach(function (forecastDay, index) {
+    if (index < 6) {
+      forecastHTML =
+        forecastHTML +
+        `<div class="col-2">
+      <img src="http://shecodes-assets.s3.amazonaws.com/api/weather/icons/${
+        forecastDay.condition.icon
+      }.png" />
+      <span>${formatDay(forecastDay.time)}</span>
+      <span>${Math.round(forecastDay.temperature.day)} °C</span>
+      <span>${forecastDay.condition.description}</span>
     </div>`;
+    }
   });
   forecastHTML = forecastHTML + `</div`;
   forecastElement.innerHTML = forecastHTML;
+}
+
+function getForecast(coordinates, units = "metric") {
+  let apiLocationUrl = `https://api.shecodes.io/weather/v1/forecast?lon=${coordinates.longitude}&lat=${coordinates.latitude}&key=${apiKey}&${units}`;
+  axios.get(apiLocationUrl).then(displayForecast);
 }
